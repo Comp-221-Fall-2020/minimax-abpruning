@@ -1,17 +1,11 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import edu.macalester.graphics.CanvasWindow;
 
 public class AIPlayer extends Player {
     int[] bestMove = null;
-    // int[][] board;
     private static int[] scores;
 
     public AIPlayer(int playerNumber, SinglePlayerGame game) {
         super(playerNumber, game);
-        // board = new int[game.boardSize][game.boardSize];
         scores = new int[] { 0, -10, 10 };
         bestMove = new int[2];
     }
