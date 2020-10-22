@@ -48,21 +48,23 @@ public class EfficiencyTesting {
 
     public static void main(String[] args) {
         EfficiencyTesting tester = new EfficiencyTesting();
+        String minimaxTitle = "Minimax's average time over 100 boards: ";
+        String abTitle = "Alpha-beta pruning's average time over 100 boards: ";
 
         List<int[][]> boardList1 = tester.generateBoards();
         long minimaxResult = tester.timeMinimax(boardList1);
         long abPruningResult = tester.timeAbPruning(boardList1);
         System.out.println("------------ Minimax first ------------");
-        System.out.println("Minimax's average time over 100 boards: " + minimaxResult);
-        System.out.println("Alpha-beta pruning's average time over 100 boards: " + abPruningResult);
+        System.out.println(minimaxTitle + minimaxResult);
+        System.out.println(abTitle + abPruningResult);
         System.out.println();
 
         List<int[][]> boardList2 = tester.generateBoards();
-        long minimaxResult2 = tester.timeMinimax(boardList2);
         long abPruningResult2 = tester.timeAbPruning(boardList2);
+        long minimaxResult2 = tester.timeMinimax(boardList2);
         System.out.println("------- Alpha-beta pruning first -------");
-        System.out.println("Minimax's average time over 100 boards: " + minimaxResult2);
-        System.out.println("Alpha-beta pruning's average time over 100 boards: " + abPruningResult2);
+        System.out.println(minimaxTitle + minimaxResult2);
+        System.out.println(abTitle + abPruningResult2);
         System.out.println();
 
         List<int[][]> boardList3 = tester.generateBoards();
@@ -70,7 +72,7 @@ public class EfficiencyTesting {
         long minimaxResult3 = tester.timeMinimax(boardList3);
         long abPruningResult3 = tester.timeAbPruning(boardList4);
         System.out.println("---------- On different boards ----------");
-        System.out.println("Minimax's average time over 100 boards: " + minimaxResult3);
-        System.out.println("Alpha-beta pruning's average time over 100 boards: " + abPruningResult3);
+        System.out.println(minimaxTitle + minimaxResult3);
+        System.out.println(abTitle + abPruningResult3);
     }
 }
