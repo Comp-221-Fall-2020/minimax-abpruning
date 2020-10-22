@@ -122,6 +122,6 @@ public class AIPlayer2 extends Player {
 
     @Override
     public String notifyWin() {
-        return "AI player wins the game!";
+        return "Poor you, hooman!";
     }
 }

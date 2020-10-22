@@ -58,11 +58,11 @@ public class Game {
 
         GraphicsText notifier = new GraphicsText();
         if (!someoneWins) {
-            notifier.setText("It was a draw game.");
+            notifier.setText("That was a tie!");
         } else {
             notifier.setText(currentPlayer.notifyWin());
         }
-        notifier.setCenter(CANVAS_SIZE*0.5, CANVAS_SIZE*0.5 - 40);
+        notifier.setCenter(CANVAS_SIZE*0.5 - 10, CANVAS_SIZE*0.5 - 40);
         notifier.setFont(FontStyle.BOLD, 15);
         notifier.setFillColor(Color.RED);
         

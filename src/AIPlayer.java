@@ -112,6 +112,15 @@ public class AIPlayer extends Player {
 
     @Override
     public String notifyWin(){
-        return "AI player wins the game!";
+        return "AI neva dies B) Hehehe";
+    }
+
+    class Move {
+        public int score;
+        public int depth;
+        public Move(int score, int depth) {
+            this.score = score;
+            this.depth = depth;
+        }
     }
 }
