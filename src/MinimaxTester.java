@@ -6,6 +6,7 @@ import edu.macalester.graphics.CanvasWindow;
 public class MinimaxTester {
     private static int[] bestMove = new int[2];
     private static int[] scores = { 0, -1, 1 };
+    static int count = 0;
 
     private static int Minimax(int[][] board, int depth, boolean isMaximizer) {
         bestMove = new int[2];
@@ -23,8 +24,10 @@ public class MinimaxTester {
                         board[r][c] = 0;
                         if (value > bestVal) {
                             bestVal = value;
-                            bestMove[0] = r;
-                            bestMove[1] = c;
+                            if (depth==0) {
+                                bestMove[0] = r;
+                                bestMove[1] = c;
+                            }
                         }
                     }
                 }
@@ -42,6 +45,8 @@ public class MinimaxTester {
                             bestVal = value;
                             bestMove[0] = r;
                             bestMove[1] = c;
+                            System.out.println(count);
+                            count++;
                         }
                     }
                 }
@@ -94,15 +99,9 @@ public class MinimaxTester {
         // board[1][0] = board[2][1] = board[2][2] = 1;
         board[0][1] = 2;
         board[1][0] = board[1][1] = 1;
-        Minimax(board, 1, true);
-        System.out.println(Arrays.toString(bestMove));
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                System.out.print(board[i][j] + "   ");
-            }
-            System.out.println();
-        }
+        Minimax(board, 0, true);        
         System.out.println("------------------");
+        System.out.println(Arrays.toString(bestMove));
         board[bestMove[0]][bestMove[1]] =2; 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
