@@ -15,7 +15,7 @@ public class WelcomeWindow {
     private GraphicsText errorText;
     private TextField playersField, sizeField, conditionField;
     private MultiplayerGame multiplayerGame;
-    // private SinglePlayerGame singlePlayerGame;
+    private SinglePlayerGame singlePlayerGame;
     private Button readyButton, playWithAI;
     private GraphicsGroup multiplayerSettings;
     private GraphicsGroup singlePlayerSettings;
@@ -29,7 +29,7 @@ public class WelcomeWindow {
         canvas.add(background);
 
         this.multiplayerGame = new MultiplayerGame(canvas);
-        // this.singlePlayerGame = new SinglePlayerGame(this.canvas);
+        this.singlePlayerGame = new SinglePlayerGame(canvas);
 
         // Welcome Text
         welcomeText = new GraphicsText();
@@ -147,13 +147,13 @@ public class WelcomeWindow {
         conditionField.onChange((text) -> updateWinConditionFromField());
 
         readyButton.onClick(() -> {
-            if (multiplayerGame.getNumOfPlayers() < 2) {
+            if (multiplayerGame.numberOfPlayers < 2) {
                 errorText.setText("For the number of players, please type an integer at least 2.");
                 errorText.setCenter(CANVAS_WIDTH*0.3, CANVAS_HEIGHT*0.33);
-            } else if (multiplayerGame.getBoardSize() < 5){
-                errorText.setText("For the board size, please type an integer at least 5.");
+            } else if (multiplayerGame.boardSize < 3){
+                errorText.setText("For the board size, please type an integer at least 3.");
                 errorText.setCenter(CANVAS_WIDTH*0.3, CANVAS_HEIGHT*0.33);
-            } else if (multiplayerGame.getBoardSize() < multiplayerGame.getWinCondition()){
+            } else if (multiplayerGame.boardSize < multiplayerGame.winCondition) {
                 errorText.setText("The board size must be at least the number of marks to win.");
                 errorText.setCenter(CANVAS_WIDTH*0.3, CANVAS_HEIGHT*0.33);
             }
@@ -164,7 +164,8 @@ public class WelcomeWindow {
         });
 
         playWithAI.onClick(() -> {
-            
+            canvas.removeAll();
+            singlePlayerGame.resetGame();
         });
     }
 

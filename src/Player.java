@@ -2,7 +2,6 @@ import edu.macalester.graphics.*;
 
 public class Player {    
     protected String imagePath;
-    protected int[][] marks;
     protected int numOfMoves;
     protected int playerNumber;
     protected Game game;
@@ -17,60 +16,35 @@ public class Player {
 
     public Player(int playerNumber, Game game) {
         this.playerNumber = playerNumber;
-        marks = new int[game.boardSize][game.boardSize];
         this.game = game;
         numOfMoves = 0;
+        switch (playerNumber) {
+            case 1:
+                imagePath = "red o.png";
+                break;
+            case 2:
+                imagePath = "black x.jpg";
+                break;
+            case 3:
+                imagePath = "black o.png";
+                break;
+            case 4:
+                imagePath = "red x.png";
+                break;
+            case 5:
+                imagePath = "red check.png";
+                break;
+            case 6:
+                imagePath = "black check.png";
+                break;
+            default:
+                imagePath = "black x.jpg";
+        }
     }
 
     public boolean addMark(CanvasWindow canvas, int row, int column){
-        marks[row][column] = 1;
-        Mark newMark = new Mark(imagePath, row, column);
-        newMark.setMaxSize(game.squareSize * 0.8);
-        newMark.setCenter(game.MARGIN + game.squareSize * column + game.squareSize/2, game.MARGIN + game.squareSize * row + game.squareSize/2);
-        canvas.add(newMark.getSymbol());
-        numOfMoves++;
-        System.out.println("Player " + playerNumber + " add a mark at (" + row + ", " + column + ").");
-        System.out.println("marks[row][cow] = " + marks[row][column]);
-        if (numOfMoves >= game.winCondition) {
-            return checkWin(row, column);
-        }
+        //implemented in subclasses
         return false;
-    }
-
-    public boolean checkWin(int row, int col) {
-        int lrow, rrow, ucol, dcol, upright, dleft, upleft, dright;
-        lrow = rrow = ucol = dcol = upright = dleft = upleft = dright = 1;
-        lrow = checkWin(row, col-1, lrow, LEFT);
-        rrow = checkWin(row, col+1, rrow, RIGHT);
-        ucol = checkWin(row-1, col, ucol, UP);
-        dcol = checkWin(row+1, col, dcol, DOWN);
-        upright = checkWin(row-1, col+1, upright, UP_RIGHT);
-        dleft = checkWin(row+1, col-1, dleft, DOWN_LEFT);
-        upleft = checkWin(row-1, col-1, upleft, UP_LEFT);
-        dright = checkWin(row+1, col+1, dright, DOWN_RIGHT);
-        if (lrow+rrow-1==game.winCondition || ucol+dcol-1==game.winCondition || 
-        upright+dleft-1==game.winCondition || upleft+dright-1==game.winCondition) {
-            return true;
-        } 
-        return false;
-    }
-
-    private int checkWin(int row, int col, int count, int pattern) {
-        if (row < marks.length && row>=0 && col < marks.length && col>=0) { //assume that marks is a square 2D array
-            if (marks[row][col]==1) {
-                count = count + 1;
-                System.out.println("Player " + playerNumber + " has " + count + " consecutive in the " + pattern + " pattern.");
-                if (pattern==LEFT) return checkWin(row, col-1, count, pattern);
-                if (pattern==RIGHT) return checkWin(row, col+1, count, pattern);
-                if (pattern==UP) return checkWin(row-1, col, count, pattern);
-                if (pattern==DOWN) return checkWin(row+1, col, count, pattern);
-                if (pattern==UP_RIGHT) return checkWin(row-1, col+1, count, pattern);
-                if (pattern==DOWN_LEFT) return checkWin(row+1, col-1, count, pattern);
-                if (pattern==UP_LEFT) return checkWin(row-1, col-1, count, pattern);
-                if (pattern==DOWN_RIGHT) return checkWin(row+1, col+1, count, pattern);
-            } 
-        }
-        return count;
     }
 
     public String notifyWin(){

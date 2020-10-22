@@ -1,97 +1,63 @@
+import edu.macalester.graphics.CanvasWindow;
 
 public class HumanPlayer extends Player {
+    protected int[][] marks;
 
     public HumanPlayer(int playerNumber, Game game){
         super(playerNumber, game);
-        switch (playerNumber) {
-            case 1:
-                imagePath = "black x.jpg";
-                break;
-            case 2:
-                imagePath = "red o.png";
-                break;
-            case 3:
-                imagePath = "black o.png";
-                break;
-            case 4:
-                imagePath = "red x.png";
-                break;
-            case 5:
-                imagePath = "red check.png";
-                break;
-            case 6:
-                imagePath = "black check.png";
-                break;
-            default:
-                imagePath = "black x.jpg";
-        }
+        marks = new int[game.boardSize][game.boardSize];
     }
 
-    // public boolean checkWin(){
-    //     if (checkWinInRow()) return true;
-    //     if (checkWinInColumn()) return true;
-    //     if (checkWinInDiagonalUpRight()) return true;
-    //     if (checkWinInDiagonalUpLeft()){
-    //         return true;
-    //     }
-    //     return false;
-    // }
+    @Override
+    public boolean addMark(CanvasWindow canvas, int row, int column){
+        marks[row][column] = 1;
+        Mark newMark = new Mark(imagePath, row, column);
+        newMark.setMaxSize(game.squareSize * 0.8);
+        newMark.setCenter(game.MARGIN + game.squareSize * column + game.squareSize/2, game.MARGIN + game.squareSize * row + game.squareSize/2);
+        canvas.add(newMark.getSymbol());
+        numOfMoves++;
+        if (numOfMoves >= game.winCondition) {
+            return checkWin(row, column);
+        }
+        return false;
+    }
 
-    // private boolean checkWinInRow(){
-    //     for (Mark m: marks){
-    //         int count = 1;
-    //         // for (int i = 1; i < MultiplayerGame.winCondition; i ++) {
-    //         //     if (isMarkInPosition(m.getColumn(), m.getRow() + i)) count += 1;
-    //         //     else break;
-    //         // }
-    //         // if (count == MultiplayerGame.winCondition) return true;
-    //     }
-    //     return false;
-    // }
+    public boolean checkWin(int row, int col) {
+        int lrow, rrow, ucol, dcol, upright, dleft, upleft, dright;
+        lrow = rrow = ucol = dcol = upright = dleft = upleft = dright = 1;
+        lrow = checkWin(row, col-1, lrow, LEFT);
+        rrow = checkWin(row, col+1, rrow, RIGHT);
+        ucol = checkWin(row-1, col, ucol, UP);
+        dcol = checkWin(row+1, col, dcol, DOWN);
+        upright = checkWin(row-1, col+1, upright, UP_RIGHT);
+        dleft = checkWin(row+1, col-1, dleft, DOWN_LEFT);
+        upleft = checkWin(row-1, col-1, upleft, UP_LEFT);
+        dright = checkWin(row+1, col+1, dright, DOWN_RIGHT);
+        if (lrow+rrow-1==game.winCondition || ucol+dcol-1==game.winCondition || 
+        upright+dleft-1==game.winCondition || upleft+dright-1==game.winCondition) {
+            return true;
+        } 
+        return false;
+    }
 
-    // private boolean checkWinInColumn(){
-    //     for (Mark m: marks){
-    //         int count = 1;
-    //         // for (int i = 1; i < MultiplayerGame.winCondition; i ++) {
-    //         //     if (isMarkInPosition(m.getColumn() + i, m.getRow())) count += 1;
-    //         //     else break;
-    //         // }
-    //         // if (count == MultiplayerGame.winCondition) return true;
-    //     }
-    //     return false;
-    // }
+    private int checkWin(int row, int col, int count, int pattern) {
+        if (row < marks.length && row>=0 && col < marks.length && col>=0) { //assume that marks is a square 2D array
+            if (marks[row][col]==1) {
+                count = count + 1;
+                if (pattern==LEFT) return checkWin(row, col-1, count, pattern);
+                if (pattern==RIGHT) return checkWin(row, col+1, count, pattern);
+                if (pattern==UP) return checkWin(row-1, col, count, pattern);
+                if (pattern==DOWN) return checkWin(row+1, col, count, pattern);
+                if (pattern==UP_RIGHT) return checkWin(row-1, col+1, count, pattern);
+                if (pattern==DOWN_LEFT) return checkWin(row+1, col-1, count, pattern);
+                if (pattern==UP_LEFT) return checkWin(row-1, col-1, count, pattern);
+                if (pattern==DOWN_RIGHT) return checkWin(row+1, col+1, count, pattern);
+            } 
+        }
+        return count;
+    }
 
-    // private boolean checkWinInDiagonalUpRight(){
-    //     for (Mark m: marks){
-    //         int count = 1;
-    //     //    for (int i = 1; i < MultiplayerGame.winCondition; i ++) {
-    //     //         if (isMarkInPosition(m.getColumn() + i, m.getRow() + i)) count += 1;
-    //     //     }
-    //     //     if (count == MultiplayerGame.winCondition) return true;
-    //     }
-    //     return false;
-    // }
-
-    // private boolean checkWinInDiagonalUpLeft(){
-    //     for (Mark m: marks){
-    //         int count = 1;
-    //         // for (int i = 1; i < MultiplayerGame.winCondition; i ++) {
-    //         //     if (isMarkInPosition(m.getColumn() + i, m.getRow() - i)) count += 1;
-    //         // }
-    //         // if (count == MultiplayerGame.winCondition) return true;
-    //     }
-    //     return false;
-    // }
-
-
-
-
-    // private boolean isMarkInPosition(int column, int row){
-    //     for (Mark m: marks){
-    //         if (m.getRow() == row && m.getColumn() == column){
-    //             return true;
-    //         }
-    //     }
-    //     return false;
-    // }
+    public int[][] getMarks() {
+        return marks;
+    }
 }

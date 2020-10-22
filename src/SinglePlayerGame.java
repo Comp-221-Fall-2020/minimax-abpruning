@@ -5,7 +5,7 @@ import edu.macalester.graphics.CanvasWindow;
 import edu.macalester.graphics.Point;
 
 public class SinglePlayerGame extends Game {
-    private AIPlayer aiPlayer;
+    private AIPlayer2 aiPlayer;
     private HumanPlayer humanPlayer;
 
     public SinglePlayerGame(CanvasWindow canvas) {
@@ -21,7 +21,7 @@ public class SinglePlayerGame extends Game {
         board = new int[boardSize][boardSize];
         humanPlayer = new HumanPlayer(1, this);
         players.add(humanPlayer);
-        aiPlayer = new AIPlayer(2, this);
+        aiPlayer = new AIPlayer2(2, this);
         players.add(aiPlayer);
         canvas.onClick(e -> {
             Point pos = e.getPosition();
@@ -34,6 +34,7 @@ public class SinglePlayerGame extends Game {
                     // human's turn
                     board[row][column] = 1;
                     if (humanPlayer.addMark(canvas, row, column)) {
+                        currentPlayer = players.get(0);
                         playMode = false;
                         askToPlayAgain(true);
                     };
