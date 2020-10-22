@@ -2,6 +2,7 @@ import edu.macalester.graphics.*;
 import edu.macalester.graphics.Rectangle;
 import edu.macalester.graphics.ui.Button;
 import edu.macalester.graphics.Point;
+import edu.macalester.graphics.Image;
 
 import java.awt.*;
 import java.util.List;
@@ -33,6 +34,7 @@ public class Game {
 
     public void resetGame() {
         turn = 0;
+        setBackground();
         drawLines();
         turnDisplay = new GraphicsText();
         turnDisplay.setText("Next turn: player 1");
@@ -116,6 +118,12 @@ public class Game {
             canvas.add(line);
             x += squareSize;
         }
+    }
+
+    private void setBackground() {
+        Image background = new Image("background1.jpg");
+        background.setMaxHeight(canvas.getHeight());
+        canvas.add(background);
     }
 
 }

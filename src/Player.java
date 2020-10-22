@@ -23,7 +23,7 @@ public class Player {
                 imagePath = "red o.png";
                 break;
             case 2:
-                imagePath = "black x.jpg";
+                imagePath = "black x.png";
                 break;
             case 3:
                 imagePath = "black o.png";
@@ -38,7 +38,7 @@ public class Player {
                 imagePath = "black check.png";
                 break;
             default:
-                imagePath = "black x.jpg";
+                imagePath = "black x.png";
         }
     }
 
