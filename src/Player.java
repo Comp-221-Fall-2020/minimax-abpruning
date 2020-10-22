@@ -1,6 +1,6 @@
 import edu.macalester.graphics.*;
 
-public class Player {    
+public class Player {
     protected String imagePath;
     protected int numOfMoves;
     protected int playerNumber;
@@ -42,12 +42,12 @@ public class Player {
         }
     }
 
-    public boolean addMark(CanvasWindow canvas, int row, int column){
-        //implemented in subclasses
+    public boolean addMark(CanvasWindow canvas, int row, int column) {
+        // implemented in subclasses
         return false;
     }
 
-    public String notifyWin(){
+    public String notifyWin() {
         return "Player " + playerNumber + " wins the game!";
     }
 }

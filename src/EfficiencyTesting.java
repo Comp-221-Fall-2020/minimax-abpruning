@@ -12,10 +12,10 @@ public class EfficiencyTesting {
 
     public List<int[][]> generateBoards() {
         List<int[][]> listOfBoards = new ArrayList<>();
-        for (int i=0; i<100; i++) {
+        for (int i = 0; i < 100; i++) {
             int[][] board = new int[3][3];
-            for (int j=0; j<3; j++) {
-                for (int k=0; k<3; k++) {
+            for (int j = 0; j < 3; j++) {
+                for (int k = 0; k < 3; k++) {
                     board[j][k] = rand.nextInt(3);
                 }
             }
@@ -26,24 +26,24 @@ public class EfficiencyTesting {
 
     public long timeMinimax(List<int[][]> listOfBoards) {
         long sum = 0;
-        for (int[][] board: listOfBoards) {
+        for (int[][] board : listOfBoards) {
             long startTime = System.nanoTime();
             minimax.Minimax(board, 0, true);
             long endTime = System.nanoTime();
             sum = sum + (endTime - startTime);
         }
-        return sum/100;
+        return sum / 100;
     }
 
     public long timeAbPruning(List<int[][]> listOfBoards) {
         long sum = 0;
-        for (int[][] board: listOfBoards) {
+        for (int[][] board : listOfBoards) {
             long startTime = System.nanoTime();
             AbPruning.Minimax(board, 0, true, Integer.MIN_VALUE, Integer.MAX_VALUE);
             long endTime = System.nanoTime();
             sum = sum + (endTime - startTime);
         }
-        return sum/100;
+        return sum / 100;
     }
 
     public static void main(String[] args) {

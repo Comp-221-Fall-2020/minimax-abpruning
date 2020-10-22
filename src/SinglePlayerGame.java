@@ -1,6 +1,3 @@
-import java.lang.reflect.Array;
-import java.util.Arrays;
-
 import edu.macalester.graphics.CanvasWindow;
 import edu.macalester.graphics.Point;
 
@@ -26,8 +23,8 @@ public class SinglePlayerGame extends Game {
         canvas.onClick(e -> {
             Point pos = e.getPosition();
             if (playMode && clickInRange(pos)) {
-                int column = (int) Math.floor((pos.getX() - MARGIN)/squareSize);
-                int row = (int) Math.floor((pos.getY() - MARGIN)/squareSize);
+                int column = (int) Math.floor((pos.getX() - MARGIN) / squareSize);
+                int row = (int) Math.floor((pos.getY() - MARGIN) / squareSize);
                 if (board[row][column] != 0) {
                     turnDisplay.setText("Cannot add moves in a filled cell.");
                 } else {
@@ -37,29 +34,30 @@ public class SinglePlayerGame extends Game {
                         currentPlayer = players.get(0);
                         playMode = false;
                         askToPlayAgain(true);
-                    };
-                    turnDisplay.setText("Next turn: player " + ((turn + 1)% numberOfPlayers + 1));
+                    }
+                    ;
+                    turnDisplay.setText("Next turn: player " + ((turn + 1) % numberOfPlayers + 1));
                     canvas.draw();
                     turn++;
                     movesCount++;
 
                     // AI's turn
                     int[] bestMove = aiPlayer.takeBestMove(board);
-                    if (board[bestMove[0]][bestMove[1]]==0) {
+                    if (board[bestMove[0]][bestMove[1]] == 0) {
                         board[bestMove[0]][bestMove[1]] = 2;
                         aiPlayer.addMark(canvas);
                     }
 
-                    turnDisplay.setText("Next turn: player " + ((turn + 1)% numberOfPlayers + 1));
+                    turnDisplay.setText("Next turn: player " + ((turn + 1) % numberOfPlayers + 1));
                     turn++;
                     movesCount++;
-                    
+
                     int winner = checkWinner();
-                    if (winner!=-1) {
+                    if (winner != -1) {
                         playMode = false;
-                        currentPlayer = players.get(winner-1);
+                        currentPlayer = players.get(winner - 1);
                         askToPlayAgain(true);
-                    } else if (movesCount>= boardSize*boardSize) {
+                    } else if (movesCount >= boardSize * boardSize) {
                         playMode = false;
                         askToPlayAgain(false);
                     }
@@ -71,7 +69,7 @@ public class SinglePlayerGame extends Game {
 
     private int checkWinner() {
         int winner = -1;
-        for (int i=0; i<board.length; i++) {
+        for (int i = 0; i < board.length; i++) {
             if (equals3(board[i][0], board[i][1], board[i][2])) {
                 winner = board[i][1];
             }
@@ -89,8 +87,8 @@ public class SinglePlayerGame extends Game {
     }
 
     private boolean equals3(int a, int b, int c) {
-        if (a!=0 && b!=0 && c!=0) {
-            return (a==b && b==c);
+        if (a != 0 && b != 0 && c != 0) {
+            return (a == b && b == c);
         }
         return false;
     }

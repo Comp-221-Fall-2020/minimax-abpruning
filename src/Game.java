@@ -20,11 +20,11 @@ public class Game {
     protected final double MARGIN = 50;
     protected GraphicsText turnDisplay;
     protected int turn;
-    protected boolean playMode; 
+    protected boolean playMode;
     protected Player currentPlayer;
     protected List<Player> players;
 
-    public Game (CanvasWindow canvas) {
+    public Game(CanvasWindow canvas) {
         this.canvas = canvas;
         this.CANVAS_SIZE = canvas.getHeight();
         players = new ArrayList<>();
@@ -49,12 +49,12 @@ public class Game {
 
     protected void askToPlayAgain(boolean someoneWins) {
         Rectangle rectangle = new Rectangle(0, 0, 250, 150);
-        rectangle.setCenter(CANVAS_SIZE*0.5, CANVAS_SIZE*0.5);
+        rectangle.setCenter(CANVAS_SIZE * 0.5, CANVAS_SIZE * 0.5);
         rectangle.setFillColor(new Color(255, 246, 249, 236));
 
         GraphicsText ask = new GraphicsText();
         ask.setText("Do you want to play again?");
-        ask.setCenter(CANVAS_SIZE*0.5, CANVAS_SIZE*0.5 - 10);
+        ask.setCenter(CANVAS_SIZE * 0.5, CANVAS_SIZE * 0.5 - 10);
 
         GraphicsText notifier = new GraphicsText();
         if (!someoneWins) {
@@ -62,18 +62,18 @@ public class Game {
         } else {
             notifier.setText(currentPlayer.notifyWin());
         }
-        notifier.setCenter(CANVAS_SIZE*0.5 - 10, CANVAS_SIZE*0.5 - 40);
+        notifier.setCenter(CANVAS_SIZE * 0.5 - 10, CANVAS_SIZE * 0.5 - 40);
         notifier.setFont(FontStyle.BOLD, 15);
         notifier.setFillColor(Color.RED);
-        
+
         canvas.add(rectangle);
         canvas.add(ask);
         canvas.add(notifier);
 
         Button yes = new Button("Yes    ");
-        yes.setCenter(CANVAS_SIZE*0.5 - 50, CANVAS_SIZE*0.5 + 45);
+        yes.setCenter(CANVAS_SIZE * 0.5 - 50, CANVAS_SIZE * 0.5 + 45);
         Button no = new Button("No    ");
-        no.setCenter(CANVAS_SIZE*0.5 + 50, CANVAS_SIZE*0.5 + 45);
+        no.setCenter(CANVAS_SIZE * 0.5 + 50, CANVAS_SIZE * 0.5 + 45);
         canvas.add(yes);
         canvas.add(no);
         yes.onClick(() -> {
@@ -89,7 +89,8 @@ public class Game {
     }
 
     protected boolean clickInRange(Point pos) {
-        return (pos.getX() <= CANVAS_SIZE-MARGIN && pos.getX() >= MARGIN && pos.getY() <= CANVAS_SIZE-MARGIN && pos.getY() >= MARGIN);
+        return (pos.getX() <= CANVAS_SIZE - MARGIN && pos.getX() >= MARGIN && pos.getY() <= CANVAS_SIZE - MARGIN
+            && pos.getY() >= MARGIN);
     }
 
     protected void drawLines() {

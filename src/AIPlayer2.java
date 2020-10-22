@@ -2,7 +2,7 @@ import edu.macalester.graphics.CanvasWindow;
 
 public class AIPlayer2 extends Player {
     int[] bestMove = null;
-    private static int[] scores;
+    private int[] scores;
 
     public AIPlayer2(int playerNumber, SinglePlayerGame game) {
         super(playerNumber, game);
@@ -37,8 +37,7 @@ public class AIPlayer2 extends Player {
         int bestVal;
         if (isMaximizer) {
             bestVal = Integer.MIN_VALUE;
-            maxOuterLoop: 
-            for (int r = 0; r < board.length; r++) {
+            maxOuterLoop: for (int r = 0; r < board.length; r++) {
                 for (int c = 0; c < board.length; c++) {
                     if (board[r][c] == 0) {
                         board[r][c] = 2;
@@ -61,8 +60,7 @@ public class AIPlayer2 extends Player {
             return bestVal;
         } else {
             bestVal = Integer.MAX_VALUE;
-            minOuterLoop: 
-            for (int r = 0; r < board.length; r++) {
+            minOuterLoop: for (int r = 0; r < board.length; r++) {
                 for (int c = 0; c < board.length; c++) {
                     if (board[r][c] == 0) {
                         board[r][c] = 1;

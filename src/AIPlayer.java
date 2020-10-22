@@ -2,7 +2,7 @@ import edu.macalester.graphics.CanvasWindow;
 
 public class AIPlayer extends Player {
     int[] bestMove = null;
-    private static int[] scores;
+    private int[] scores;
 
     public AIPlayer(int playerNumber, SinglePlayerGame game) {
         super(playerNumber, game);
@@ -111,16 +111,7 @@ public class AIPlayer extends Player {
     }
 
     @Override
-    public String notifyWin(){
+    public String notifyWin() {
         return "AI neva dies B) Hehehe";
-    }
-
-    class Move {
-        public int score;
-        public int depth;
-        public Move(int score, int depth) {
-            this.score = score;
-            this.depth = depth;
-        }
     }
 }

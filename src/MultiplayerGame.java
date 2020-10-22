@@ -16,8 +16,8 @@ public class MultiplayerGame extends Game {
             currentPlayer = players.get(turn % numberOfPlayers);
             Point pos = e.getPosition();
             if (playMode && currentPlayer != null && clickInRange(pos)) {
-                int column = (int) Math.floor((pos.getX() - MARGIN)/squareSize);
-                int row = (int) Math.floor((pos.getY() - MARGIN)/squareSize);
+                int column = (int) Math.floor((pos.getX() - MARGIN) / squareSize);
+                int row = (int) Math.floor((pos.getY() - MARGIN) / squareSize);
                 if (board[row][column] != 0) {
                     turnDisplay.setText("Cannot add moves in a filled cell.");
                 } else {
@@ -30,7 +30,7 @@ public class MultiplayerGame extends Game {
                         playMode = false;
                         askToPlayAgain(false);
                     }
-                    turnDisplay.setText("Next turn: player " + ((turn + 1)% numberOfPlayers + 1));
+                    turnDisplay.setText("Next turn: player " + ((turn + 1) % numberOfPlayers + 1));
                     turn += 1;
                 }
             }
