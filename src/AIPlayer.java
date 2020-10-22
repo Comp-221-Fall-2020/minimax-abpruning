@@ -29,7 +29,7 @@ public class AIPlayer extends Player {
         return bestMove;
     }
 
-    private int Minimax(int[][] board, int depth, boolean isMaximizer) {
+    public int Minimax(int[][] board, int depth, boolean isMaximizer) {
         Integer winner = checkWinner(board);
         if (winner != null) {
             return scores[winner];
